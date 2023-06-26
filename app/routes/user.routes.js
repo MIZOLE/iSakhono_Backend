@@ -13,9 +13,9 @@ module.exports = function(app) {
   
 
   
-  app.get("/api/auth/allusers", controller.findAllusers);
-  app.get("/api/auth/userbyid", controller.findUserById)
-  app.put("/api/auth/update", controller.updateUser)
-  app.delete("/api/auth/deleteuser", controller.deleteOneUser)
+  app.get("/api/users", controller.findAllusers);
+  app.get("/api/users/:id", controller.findUserById)
+  app.put("/api/users/:id", controller.updateUser)
+  app.delete("/api/users/:id", controller.deleteOneUser)
 
 };

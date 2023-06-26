@@ -7,7 +7,7 @@ exports.updateUser = (req, res) => {
     return;
   }
 
-  let id = req.body.id;
+  let id = req.params.id;
   User.findByIdAndUpdate(id, req.body)
     .then(user => {
       if (!user) {
@@ -35,7 +35,7 @@ exports.findAllusers = (req, res) => {
 
 exports.findUserById = (req, res) => {
 
-  let id = req.body.id;
+  let id = req.params.id;
 
   User.findById(id)
     .then(user => {
@@ -54,7 +54,7 @@ exports.findUserById = (req, res) => {
 
 exports.deleteOneUser = (req, res) => {
 
-  const id = req.body.id
+  const id = req.params.id
 
   User.findByIdAndRemove(id, { userFindAndModify: false })
     .then(user => {
