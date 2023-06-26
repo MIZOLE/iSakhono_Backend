@@ -8,9 +8,7 @@ const db = {};
 db.mongoose = mongoose;
 
 db.url = dbConfig.url
-// db.prof = require("./createprofile.model")(mongoose)
+db.jobs = require("./jobs.model")
 db.user = require("./user.model");
-db.role = require("./role.model");
-// db.refreshToken = require("./refreshhToken.model")
-db.ROLES = ["user", "admin", "moderator"];
+db.employer = require("./employer.model");
 module.exports = db;

@@ -7,7 +7,6 @@ require('dotenv').config()
 const app = express();
 // app.use(express)
 const db = require("./app/models");
-const Role = db.role;
 
 let DB = require("./app/config/db.config")
 // const DB = require("./config/db.config")
@@ -18,7 +17,6 @@ db.mongoose.connect(DB.url_, {
   })
   .then(() => {
     console.log("Successfully connect to MongoDB.");
-    initial();
   })
   .catch(err => {
     console.error("Connection error", err);
@@ -60,6 +58,8 @@ app.get("/", (req, res) => {
 // routes
 require('./app/routes/auth.routes')(app);
 require('./app/routes/user.routes')(app);
+require('./app/routes/employers.routes')(app)
+// require('./app/routes/createjobs.routes')(app)
 
 
 // set port, listen for requests
@@ -68,23 +68,3 @@ app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
 });
 
-async function initial() {
-  try {
-    const count = await Role.estimatedDocumentCount();
-
-    if (count === 0) {
-      await Promise.all([
-        new Role({ name: "user" }).save(),
-        new Role({ name: "moderator" }).save(),
-        new Role({ name: "admin" }).save(),
-     
-        console.log(Role)
-
-      ]);
-
-      console.log("Added 'user', 'moderator', and 'admin' to the roles collection");
-    }
-  } catch (error) {
-    console.error("Error occurred:", error);
-  }
-}
