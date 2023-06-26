@@ -33,8 +33,8 @@ exports.create_job = async (req, res) => {
 
 exports.findAlljobs = (req, res) => {
     // User.find
-    Jobs.find().then(user => {
-      res.send(user)
+    Jobs.find().then(data => {
+      res.send(data)
     }).catch(err => {
       res.status(404).send({
         message:
