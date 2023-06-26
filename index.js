@@ -23,11 +23,11 @@ db.mongoose.connect(DB.url_, {
     process.exit();
   });
   
-var corsOptions = {
-  origin: "http://localhost:8080"
-};
+// var corsOptions = {
+//   origin: "http://localhost:8080"
+// };
 
-app.use(cors(corsOptions));
+app.use(cors());
 
 // parse requests of content-type - application/json
 app.use(express.json());
