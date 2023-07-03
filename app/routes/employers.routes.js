@@ -1,27 +1,29 @@
 const controller = require("../controllers/employer.controller");
 const controller2 = require("../controllers/jobs.controllers");
+const { authJwt } = require("../middlewares");
 
 const { verifyCompany } = require("../middlewares");
 
-module.exports = function(app){
-    app.use(function(req, res, next) {
-        res.header(
-          "Access-Control-Allow-Headers",
-          "Origin, Content-Type, Accept"
-        );
-        next();
-      });
+module.exports = function (app) {
+  app.use(function (req, res, next) {
+    res.header(
+      "Access-Control-Allow-Headers",
+      "Origin, Content-Type, Accept"
+    );
+    next();
+  });
 
-      app.post(
-        "/api/company/signup",
-        [
-            verifyCompany.checkForCompanyDuplicates,
-        ],
-        controller.company_signup
-      );
-    
-      app.post("/api/employer/signin", controller.companysignin);
-      app.post("/api/employer/createjobpost", controller2.create_job)
-      // app.get("/api/employer/getalljobs", controller2.findalljobs)
+  app.post(
+    "/api/company/signup",
+    [
+      verifyCompany.checkForCompanyDuplicates,
+    ],
+    controller.company_signup
+  );
+
+  app.post("/api/employer/signin", controller.companysignin);
+  app.get("/api/employers", controller.findAll)
+  app.get("/api/employer/findone/:id", controller2.getcompanybyid)
+  app.delete("api/employer/:id", controller.deleteacompany)
 
 }

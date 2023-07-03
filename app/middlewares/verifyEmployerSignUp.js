@@ -22,6 +22,7 @@ const checkForCompanyDuplicates = async (req, res, next) => {
     }
   };
 
+
   const verifyCompany = {
     checkForCompanyDuplicates
   };

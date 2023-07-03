@@ -1,7 +1,7 @@
 const db = require("../models");
 const config = require("../config/auth.config");
-const employer = db.employer;
-const bcrypt = require('bcrypt');
+const Employer = db.employer;
+let bcrypt = require('bcrypt');
 var jwt = require("jsonwebtoken");
 
 exports.company_signup = async (req, res) => {
@@ -9,11 +9,11 @@ exports.company_signup = async (req, res) => {
     res.send({ message: "Can't create company profile with empty name" })
     return
   }
-  const companyname = await employer.findOne({ companyname: req.body.companyname }).exec();
+  const companyname = await Employer.findOne({ companyname: req.body.companyname }).exec();
   if (companyname) {
     return res.status(400).send({ message: "Failed! Company name already exist!" });
   }
-  const company = new employer({
+  const company = new Employer({
     companyname: req.body.companyname,
     location: req.body.location,
     company_email: req.body.company_email,
@@ -26,7 +26,7 @@ exports.company_signup = async (req, res) => {
 }
 
 exports.companysignin = (req, res) => {
-  employer.findOne({ companyname: req.body.companyname })
+  Employer.findOne({ companyname: req.body.companyname })
     .then(company => {
       console.log(company)
       if (!company) {
@@ -40,7 +40,7 @@ exports.companysignin = (req, res) => {
         return res.status(401).send({ message: "Invalid Password!" });
       }
 
-      var token = jwt.sign({ id: company.id }, config.secret, {
+      var token = jwt.sign({ id: company.id, companyname: company.companyname }, config.secret, {
         expiresIn: 86400, // 24 hours
       });
 
@@ -57,5 +57,28 @@ exports.companysignin = (req, res) => {
       res.status(500).send({ message: err.message });
     });
 };
+
+exports.findAll = (req, res) => {
+
+  Employer.find()
+    .then(data => {
+      res.send(data)
+    }).catch(err => {
+      res.send(err.message)
+    })
+}
+
+exports.deleteacompany = (req, res) => {
+  id = req.params.id;
+
+  Employer.findByIdAndRemove(id)
+    .then(data => {
+      res.status.send(data)
+    }).catch(err => {
+      res.status(500).send("An error occurred while finding the the ideal job");
+      console.log("An error occurred while finding the ", err);
+    })
+}
+
 
 

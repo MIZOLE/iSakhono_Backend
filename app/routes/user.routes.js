@@ -10,12 +10,13 @@ module.exports = function(app) {
     );
     next();
   });
-  
-
-  
+    
   app.get("/api/users", controller.findAllusers);
   app.get("/api/users/:id", controller.findUserById)
-  app.put("/api/users/:id", controller.updateUser)
+  app.put("/api/users/:id", [
+    authJwt.verifyToken,
+    authJwt.verifyUser
+  ], controller.updateUser)
   app.delete("/api/users/:id", controller.deleteOneUser)
 
 };

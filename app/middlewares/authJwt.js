@@ -1,9 +1,7 @@
 const jwt = require("jsonwebtoken");
 const config = require("../config/auth.config.js");
 const db = require("../models");
-const User = db.user;
-const employer = db.employer
-const Role = db.role;
+
 
 const verifyToken = (req, res, next) => {
   
@@ -18,13 +16,53 @@ const verifyToken = (req, res, next) => {
       return res.status(401).send({ message: "Unauthorized!" });
     }
     req.userId = decoded.id;
+    // req.user = decoded
     next();
   });
 };
 
+const verifyUser = (req, res, next) => {
+  let id = req.body.id
+  if (req.user.id != id) {
+    return res.status(401).send({ message: "Please edit your own profile!" });
+  }
+  console.log(req.userId)
+  next();
+}
+
+const verifyCompanybeforeupdate = (req, res, next) => {
+
+  // let companyid = req.body.token
+  // console.log(req.user)
+  if (req.userId != req.params.companyid) {
+    return res.status(401).send({ message: "Please update your own company profile" });
+  } 
+  next();
+}
+
+const verifyCompanybeforedelete = (req, res, next)=> {
+  if (req.userId != req.params.companyid ){
+    return res.status(401).send({ message: "You're not allowed to delete this job" });
+  }
+
+  next();
+}
+
+const check_specjob_post = (req, res, next) => {
+  let loggedin_company = req.params.companyid;
+
+  if (req.userId != loggedin_company) {
+    return res.status(401).send({ message: "No jobs available from this company" });
+  } 
+  next();
+}
 
 
 const authJwt = {
   verifyToken,
+  verifyUser,
+  verifyCompanybeforeupdate,
+  verifyCompanybeforedelete,
+  check_specjob_post,
 };
 module.exports = authJwt;
