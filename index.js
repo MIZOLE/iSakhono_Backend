@@ -59,7 +59,7 @@ app.get("/", (req, res) => {
 require('./app/routes/auth.routes')(app);
 require('./app/routes/user.routes')(app);
 require('./app/routes/employers.routes')(app)
-// require('./app/routes/createjobs.routes')(app)
+require('./app/routes/jobs.routes')(app)
 
 
 // set port, listen for requests

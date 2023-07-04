@@ -58,25 +58,35 @@ exports.companysignin = (req, res) => {
     });
 };
 
-exports.findAll = (req, res) => {
+exports.updatecompanyprofile = (req, res) => {
 
-  Employer.find()
-    .then(data => {
-      res.send(data)
-    }).catch(err => {
-      res.send(err.message)
+  if (!req.body) {
+    res.status(404).send("Cannot update the job")
+    return;
+  }
+
+  let id = req.params.id;
+
+  Employer.findByIdAndUpdate(id, req.body)
+    .then(job => {
+      if (!job) {
+        res.status(404).send({
+          msg: `Cannot update the company with id=${id}.`
+        })
+      } else res.status(201).send({ msg: `company profile was edited` })
     })
 }
 
+
 exports.deleteacompany = (req, res) => {
-  id = req.params.id;
+  id = req.body.id;
 
   Employer.findByIdAndRemove(id)
     .then(data => {
       res.status.send(data)
     }).catch(err => {
-      res.status(500).send("An error occurred while finding the the ideal job");
-      console.log("An error occurred while finding the ", err);
+      res.status(500).send("An error occurred while deleting the the ideal company");
+      console.log("An error occurred while deleteing the ", err);
     })
 }
 

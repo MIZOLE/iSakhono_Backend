@@ -57,6 +57,10 @@ const check_specjob_post = (req, res, next) => {
   next();
 }
 
+const verifybeforegettingaspecifccompany = (req, res, next) => {
+
+}
+
 
 const authJwt = {
   verifyToken,

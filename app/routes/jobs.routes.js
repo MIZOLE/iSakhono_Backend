@@ -1,8 +1,9 @@
-const controller = require("../controllers/jobs.controllers");
-const { authJwt } = require("../middlewares");
-const { verifyCompany } = require("../middlewares");
-
 module.exports = function (app) {
+
+    const controller = require("../controllers/jobs.controller");
+    const { authJwt } = require("../middlewares");
+    const { verifyCompany } = require("../middlewares");
+
     app.use(function (req, res, next) {
         res.header(
             "Access-Control-Allow-Headers",
@@ -20,8 +21,3 @@ module.exports = function (app) {
 
     // app.get("/api/employer/speccompany", [authJwt.check_specjob_post, authJwt.verifyCompanybeforeupdate], controller2.onlygetspecificcompanypost)
 }
-
-
-
-
-

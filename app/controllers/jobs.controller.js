@@ -17,6 +17,7 @@ exports.create_job = async (req, res) => {
     work_type: req.body.work_type,
     job_description: req.body.job_description
   });
+  console.log(jobs)
 
   jobs.save().then(() => {
     res.status(200).send({ message: "The job post was created" })
@@ -81,7 +82,6 @@ exports.updateajobpost = (req, res) => {
     })
 }
 
-
 //delete a job post for your own company(supposely)
 exports.deleteajob = (req, res) => {
   const id = req.params.id
@@ -116,6 +116,8 @@ exports.onlygetspecificcompanypost = (req, res) => {
       })
     })
 }
+
+
 
 
 
