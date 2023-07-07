@@ -23,7 +23,7 @@ const verifyToken = (req, res, next) => {
 
 const verifyUser = (req, res, next) => {
   let id = req.body.id
-  if (req.user.id != id) {
+  if (req.userid != id) {
     return res.status(401).send({ message: "Please edit your own profile!" });
   }
   console.log(req.userId)
@@ -58,7 +58,12 @@ const check_specjob_post = (req, res, next) => {
 }
 
 const verifybeforegettingaspecifccompany = (req, res, next) => {
+  let loggedin_company = req.params.companyid;
 
+  if (req.userId != loggedin_company) {
+    return res.status(401).send({ message: "No jobs available from this company" });
+  } 
+  next();
 }
 
 

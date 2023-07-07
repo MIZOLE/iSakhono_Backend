@@ -8,6 +8,7 @@ const employer = mongoose.model(
     industry: String,
     location: String,
     company_email: String,
+    contact_person: String,
     password: String,    
   })
 );

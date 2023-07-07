@@ -17,6 +17,7 @@ exports.company_signup = async (req, res) => {
     companyname: req.body.companyname,
     location: req.body.location,
     company_email: req.body.company_email,
+    contact_person: req.body.contact_person, 
     password: bcrypt.hashSync(req.body.password, 8),
   });
 
@@ -76,7 +77,6 @@ exports.updatecompanyprofile = (req, res) => {
       } else res.status(201).send({ msg: `company profile was edited` })
     })
 }
-
 
 exports.deleteacompany = (req, res) => {
   id = req.body.id;
