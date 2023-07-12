@@ -59,6 +59,12 @@ exports.companysignin = (req, res) => {
     });
 };
 
+exports.findAll = (req, res) => {
+  Employer.find().then(data => {
+    res.send(data)
+  })
+}
+
 exports.updatecompanyprofile = (req, res) => {
 
   if (!req.body) {

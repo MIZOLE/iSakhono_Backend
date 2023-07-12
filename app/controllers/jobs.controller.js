@@ -100,9 +100,9 @@ exports.deleteajob = (req, res) => {
 }
 
 //get a jobs for a specific company, and only for that company
-exports.onlygetspecificcompanypost = (req, res) => {
+exports.onlyGetSpecificCompanypost = (req, res) => {
    
-  Jobs.find({ companyname: req.body.companyname}).then(Cname => {
+  Jobs.find({ companyid: req.params.companyid}).then(Cname => {
       if (!Cname) {
         res.status(500).send({ msg: `No job posts from this company` })
       }

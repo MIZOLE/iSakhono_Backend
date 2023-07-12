@@ -3,6 +3,10 @@ const mongoose = require("mongoose");
 const User = mongoose.model(
   "User",
   new mongoose.Schema({
+    img: {
+      data: Buffer,
+      contentType: String
+    },
     username: String,
     email: String,
     password: String,

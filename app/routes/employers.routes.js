@@ -24,6 +24,7 @@ module.exports = function (app) {
   app.post("/api/employer/signin", controller.companysignin);
   app.put("/api/employers/:id", [authJwt.verifyToken], controller.updatecompanyprofile)
   app.get("/api/employer/:id", controller2.getcompanybyid)
+  app.get("/api/employers/", controller.findAll)
   app.delete("api/employer/:id", [authJwt.verifyToken], controller.deleteacompany)
   
 }

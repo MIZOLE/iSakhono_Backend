@@ -30,21 +30,13 @@ const verifyUser = (req, res, next) => {
   next();
 }
 
-const verifyCompanybeforeupdate = (req, res, next) => {
+const verifyCompany = (req, res, next) => {
 
   // let companyid = req.body.token
   // console.log(req.user)
   if (req.userId != req.params.companyid) {
     return res.status(401).send({ message: "Please update your own company profile" });
   } 
-  next();
-}
-
-const verifyCompanybeforedelete = (req, res, next)=> {
-  if (req.userId != req.params.companyid ){
-    return res.status(401).send({ message: "You're not allowed to delete this job" });
-  }
-
   next();
 }
 
@@ -70,8 +62,8 @@ const verifybeforegettingaspecifccompany = (req, res, next) => {
 const authJwt = {
   verifyToken,
   verifyUser,
-  verifyCompanybeforeupdate,
-  verifyCompanybeforedelete,
+  verifyCompany,
+  // verifyCompanybeforedelete,
   check_specjob_post,
 };
 module.exports = authJwt;
