@@ -11,7 +11,7 @@ exports.create_job = async (req, res) => {
   }
 
   const jobs = new Jobs({
-    jobtile: req.body.jobtile,
+    jobtittle: req.body.jobtittle,
     companyid: req.userId,
     location: req.body.location,
     work_type: req.body.work_type,
