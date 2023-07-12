@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const Jobs = mongoose.model(
   "Jobs",
   new mongoose.Schema({
-    jobtittle: String,
+    jobtitle: String,
     companyid: String,
     location: String,
     work_type: String,
