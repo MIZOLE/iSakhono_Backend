@@ -15,7 +15,7 @@
     });
 
 
-    app.post("/api/jobs/", [authJwt.verifyToken], controller.create_job);
+    app.post("/api/jobs/", controller.create_job);
     app.delete("/api/:companyid/:id", [authJwt.verifyToken, authJwt.verifyCompany], controller.deleteajob)
     app.put("/api/:companyid/:id", [authJwt.verifyToken, authJwt.verifyCompany], controller.updateajobpost)
     app.get("/api/jobs/:companyid", [authJwt.verifyToken, authJwt.verifyCompany], controller.onlyGetSpecificCompanypost)
