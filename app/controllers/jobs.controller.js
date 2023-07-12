@@ -5,7 +5,7 @@ const Employer = db.employer
 
 //create a job post
 exports.create_job = async (req, res) => {
-  if (!req.body.jobtile) {
+  if (!req.body.jobtitle) {
     res.send({ message: "Cant post without titles" })
     return
   }
