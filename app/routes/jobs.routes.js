@@ -15,12 +15,9 @@
     });
 
 
-    app.post("/api/jobs/", [authJwt.verifyToken], controller.create_job);
+    app.post("/api/jobs/createjob", [authJwt.verifyToken], controller.create_job);
     app.delete("/api/:companyid/:id", [authJwt.verifyToken, authJwt.verifyCompany], controller.deleteajob)
     app.put("/api/:companyid/:id", [authJwt.verifyToken, authJwt.verifyCompany], controller.updateajobpost)
     app.get("/api/jobs/:companyid", [authJwt.verifyToken, authJwt.verifyCompany], controller.onlyGetSpecificCompanypost)
     app.get("/api/jobs/", [authJwt.verifyToken], controller.findAlljobs)
-
-    // app.get("/api/employer/speccompany", [authJwt.check_specjob_post, authJwt.verifyCompanybeforeupdate], controller2.onlygetspecificcompanypost)
-
     }
