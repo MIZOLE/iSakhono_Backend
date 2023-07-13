@@ -12,11 +12,10 @@ module.exports = function(app) {
   });
     
   app.get("/api/users", [authJwt.verifyToken], controller.findAllusers);
-  app.get("/api/users/:id", [authJwt.verifyToken], controller.findUserById)
+  app.get("/api/users/:id", [authJwt.verifyToken, authJwt.verifyUser], controller.findUserById)
   app.put("/api/users/:id", [
     authJwt.verifyToken,
     authJwt.verifyUser
   ], controller.updateUser)
   app.delete("/api/users/:id", [authJwt.verifyToken], controller.deleteOneUser)
-
 };
