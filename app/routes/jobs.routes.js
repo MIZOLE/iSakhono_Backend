@@ -2,7 +2,7 @@
 
     const controller = require("../controllers/jobs.controller");
     const { authJwt } = require("../middlewares");
-    const { verifyCompany } = require("../middlewares");
+    
     
     module.exports = function (app) {
     app.use(function (req, res, next) {
@@ -13,9 +13,10 @@
         next();
     });
 
-    app.post("/api/jobs", controller.create_job);
+    app.post("/api/jobs",[authJwt.verifyToken], controller.create_job);
     app.delete("/api/:companyid/:id", [authJwt.verifyToken, authJwt.verifyCompany], controller.deleteajob)
     app.put("/api/:companyid/:id", [authJwt.verifyToken, authJwt.verifyCompany], controller.updateajobpost)
-    app.get("/api/jobs/:companyid", [authJwt.verifyToken, authJwt.verifyCompany], controller.onlyGetSpecificCompanypost)
+    app.get("/api/job/:id", controller.findOne)
+    app.get("/api/jobs/:companyid", [authJwt.verifyToken], controller.onlyGetSpecificCompanypost)
     app.get("/api/jobs/", [authJwt.verifyToken], controller.findAlljobs)
     }

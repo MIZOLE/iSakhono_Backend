@@ -65,6 +65,27 @@ exports.findAll = (req, res) => {
   })
 }
 
+//get a company by their ID
+exports.getcompanybyid = (req, res) => {
+
+  let id = req.params.id;
+
+  Employer.findById(id)
+    .then(user => {
+      if (!user) {
+        res.status(404).send("The employer is not defined");
+      } else {
+        console.log(user);
+        res.send(user);
+      }
+    })
+    .catch(error => {
+      res.status(500).send("An error occurred while finding the employer");
+      console.log("An error occurred while finding the employer", error);
+    });
+
+}
+
 exports.updatecompanyprofile = (req, res) => {
 
   if (!req.body) {
@@ -74,7 +95,7 @@ exports.updatecompanyprofile = (req, res) => {
 
   let id = req.params.id;
 
-  Employer.findByIdAndUpdate(id, req.body)
+  Employer.findByIdAndUpdate(id, req.body, { useFindAndModify: false })
     .then(job => {
       if (!job) {
         res.status(404).send({
@@ -84,7 +105,7 @@ exports.updatecompanyprofile = (req, res) => {
     })
 }
 
-exports.deleteacompany = (req, res) => {
+exports.deletecompany = (req, res) => {
   id = req.body.id;
 
   Employer.findByIdAndRemove(id)
@@ -92,7 +113,7 @@ exports.deleteacompany = (req, res) => {
       res.status.send(data)
     }).catch(err => {
       res.status(500).send("An error occurred while deleting the the ideal company");
-      console.log("An error occurred while deleteing the ", err);
+      // console.log("An error occurred while deleteing the ", err);
     })
 }
 

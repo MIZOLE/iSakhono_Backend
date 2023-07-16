@@ -1,5 +1,4 @@
 const controller = require("../controllers/employer.controller");
-const controller2 = require("../controllers/jobs.controller");
 const { authJwt } = require("../middlewares");
 
 const { verifyCompany } = require("../middlewares");
@@ -22,9 +21,9 @@ module.exports = function (app) {
   );
 
   app.post("/api/company/signin", controller.companysignin);
-  app.put("/api/employers/:id", [authJwt.verifyToken], controller.updatecompanyprofile)
-  app.get("/api/employer/:id", controller2.getcompanybyid)
+  app.put("/api/employers/:id", [authJwt.verifyToken, authJwt.verifyCompany], controller.updatecompanyprofile)
+  app.get("/api/employer/:id", [authJwt.verifyToken], controller.getcompanybyid)
   app.get("/api/company/", [authJwt.verifyToken], controller.findAll)
-  app.delete("api/employer/:id", [authJwt.verifyToken], controller.deleteacompany)
+  app.delete("api/employer/:id", [authJwt.verifyToken, authJwt.verifyCompany], controller.deletecompany)
   
 }

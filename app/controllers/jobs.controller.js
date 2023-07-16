@@ -30,18 +30,17 @@ exports.create_job = async (req, res) => {
 
 }
 
-//get a company by their ID
-exports.getcompanybyid = (req, res) => {
+exports.findOne = (req, res) => {
 
   let id = req.params.id;
 
-  Employer.findById(id)
-    .then(user => {
-      if (!user) {
-        res.status(404).send("The employer is not defined");
+  Jobs.findById(id)
+    .then(data => {
+      if (!data) {
+        res.status(404).send("We could not find the job with an id="+id);
       } else {
-        console.log(user);
-        res.send(user);
+        console.log(data);
+        res.send(data);
       }
     })
     .catch(error => {
@@ -72,7 +71,7 @@ exports.updateajobpost = (req, res) => {
   }
 
   let id = req.params.id;
-  Jobs.findByIdAndUpdate(id, req.body)
+  Jobs.findByIdAndUpdate(id, req.body, { useFindAndModify: false })
     .then(job => {
       if (!job) {
         res.status(404).send({
@@ -102,12 +101,13 @@ exports.deleteajob = (req, res) => {
 //get a jobs for a specific company, and only for that company
 exports.onlyGetSpecificCompanypost = (req, res) => {
    
-  Jobs.find({ companyid: req.params.companyid}).then(Cname => {
-      if (!Cname) {
+  console.log(req.params.companyid)
+  Jobs.find({ companyid: req.params.companyid }).then(data => {
+      if (!data) {
         res.status(500).send({ msg: `No job posts from this company` })
       }
-      else if (Cname){
-        res.send(Cname)
+      else if (data){
+        res.send(data)
       }
     }).catch(err => {
       res.status(404).send({
