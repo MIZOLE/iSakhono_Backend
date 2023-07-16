@@ -21,9 +21,9 @@ module.exports = function (app) {
   );
 
   app.post("/api/company/signin", controller.companysignin);
-  app.put("/api/employers/:id", [authJwt.verifyToken, authJwt.verifyCompany], controller.updatecompanyprofile)
-  app.get("/api/employer/:id", [authJwt.verifyToken], controller.getcompanybyid)
+  app.put("/api/company/:id", [authJwt.verifyToken, authJwt.verifyCompany], controller.updatecompanyprofile)
+  app.get("/api/company/:id", [authJwt.verifyToken], controller.getcompanybyid)
   app.get("/api/company/", [authJwt.verifyToken], controller.findAll)
-  app.delete("api/employer/:id", [authJwt.verifyToken, authJwt.verifyCompany], controller.deletecompany)
+  app.delete("api/company/:id", [authJwt.verifyToken, authJwt.verifyCompany], controller.deletecompany)
   
 }
