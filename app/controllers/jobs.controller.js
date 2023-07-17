@@ -100,8 +100,7 @@ exports.deleteajob = (req, res) => {
 
 //get a jobs for a specific company, and only for that company
 exports.onlyGetSpecificCompanypost = (req, res) => {
-   
-  console.log(req.params.companyid)
+
   Jobs.find({ companyid: req.params.companyid }).then(data => {
       if (!data) {
         res.status(500).send({ msg: `No job posts from this company` })
